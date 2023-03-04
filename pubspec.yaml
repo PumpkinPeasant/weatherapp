@@ -30,12 +30,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  bloc: ^8.0.0
-
+  bloc: ^8.1.1
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
+  sleek_circular_slider: ^2.0.1
+  http: ^0.13.5
+  get: ^4.6.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.5
 
 dev_dependencies:
   flutter_test:
