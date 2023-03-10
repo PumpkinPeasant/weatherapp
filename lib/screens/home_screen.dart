@@ -18,15 +18,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: Obx(() =>
-          globalController.checkLoading().isTrue ? const Center(
-            child: CircularProgressIndicator(),
-          ) : ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-              const HeaderWidget()
-            ],
-          )),
+      child: Obx(() => globalController.checkLoading().isTrue
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView(
+              scrollDirection: Axis.vertical,
+              children: const [
+                SizedBox(
+                  height: 20,
+                ),
+                HeaderWidget()
+              ],
+            )),
     ));
   }
 }

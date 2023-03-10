@@ -12,18 +12,23 @@ class HeaderWidget extends StatefulWidget {
 
 class _HeaderWidgetState extends State<HeaderWidget> {
   String city = "";
+  DateTime date = DateTime.now();
   final GlobalController globalController =
       Get.put(GlobalController(), permanent: true);
 
   @override
   void initState() {
-    getAddress(globalController.getLattitude().value, globalController.getLongitude().value);
+    getCity(globalController.getPlacemark().value);
     super.initState();
   }
 
-  getAddress(lat, lon) async {
-    List<Placemark> placemark = await placemarkFromCoordinates(lat, lon);
+  getCity(placemark) {
+    print('test');
     print(placemark);
+    setState(() {
+      // city = placemark.locality;
+      city = "Severodvinsk";
+    });
   }
 
   @override
@@ -31,8 +36,13 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     return Column(
       children: [
         Container(
-          child: Text(city),
-        )
+            margin: const EdgeInsets.only(left: 20, right: 20),
+            child: Text(city, style: const TextStyle(fontSize: 35, height: 2))),
+        Container(
+            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            child: Text(city,
+                style: TextStyle(
+                    fontSize: 14, color: Colors.grey[700], height: 1.5))),
       ],
     );
   }
