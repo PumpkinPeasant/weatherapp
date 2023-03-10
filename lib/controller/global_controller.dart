@@ -1,6 +1,8 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class GlobalController extends GetxController {
   final RxBool _isLoading = true.obs;
@@ -20,6 +22,7 @@ class GlobalController extends GetxController {
   void onInit() {
     if (_isLoading.isTrue) {
       getLocation();
+      setLocale();
     }
     super.onInit();
   }
@@ -62,5 +65,10 @@ class GlobalController extends GetxController {
     Placemark place = placemark[0];
     print(place);
     return place;
+  }
+
+  setLocale(){
+    initializeDateFormatting('ru_RU', null);
+    Intl.defaultLocale = 'ru';
   }
 }
