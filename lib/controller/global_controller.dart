@@ -21,7 +21,7 @@ class GlobalController extends GetxController {
 
   Rx<Placemark> getPlacemark() => _placemark;
 
-  final Rx<WeatherData> weatherData = WeatherData().obs;
+  final weatherData = WeatherData().obs;
 
   @override
   void onInit() {
