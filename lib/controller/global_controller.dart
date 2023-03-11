@@ -52,21 +52,26 @@ class GlobalController extends GetxController {
       }
     }
 
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value) async {
+    return await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high)
+        .then((value) async {
       _lattitude.value = value.latitude;
       _longitude.value = value.longitude;
+      print(value.latitude);
+      print(value.longitude);
       _placemark.value = await getAddress();
       _isLoading.value = false;
     });
   }
 
   getAddress() async {
-    List<Placemark> placemark = await placemarkFromCoordinates(getLattitude().value, getLongitude().value);
+    List<Placemark> placemark = await placemarkFromCoordinates(
+        getLattitude().value, getLongitude().value);
     Placemark place = placemark[0];
     return place;
   }
 
-  setLocale(){
+  setLocale() {
     initializeDateFormatting('ru_RU', null);
     Intl.defaultLocale = 'ru';
   }
