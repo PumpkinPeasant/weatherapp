@@ -4,8 +4,6 @@ import 'package:weatherapp/model/weather_data.dart';
 import 'package:http/http.dart' as http;
 import 'package:weatherapp/model/weather_data_current.dart';
 
-import 'api_key.dart';
-
 class FetchWeatherAPI {
   WeatherData? weatherData;
 

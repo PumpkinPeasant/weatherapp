@@ -7,5 +7,7 @@ class WeatherData {
 
   WeatherData([this.current]);
 
+  WeatherDataCurrent getCurrentWeather() => current!;
+
 
 }

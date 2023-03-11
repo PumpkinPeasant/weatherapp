@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weatherapp/controller/global_controller.dart';
+import 'package:weatherapp/widgets/current_weather.dart';
 import 'package:weatherapp/widgets/header_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,14 +23,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ListView(
-              scrollDirection: Axis.vertical,
-              children: const [
-                SizedBox(
-                  height: 20,
-                ),
-                HeaderWidget(),
-              ],
+          : Center(
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const HeaderWidget(),
+                  CurrentWeatherWidget(
+                    weatherDataCurrent:
+                        globalController.getWeatherData().getCurrentWeather(),
+                  ),
+                ],
+              ),
             )),
     ));
   }

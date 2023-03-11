@@ -23,6 +23,10 @@ class GlobalController extends GetxController {
 
   final weatherData = WeatherData().obs;
 
+  WeatherData getWeatherData() {
+    return weatherData.value;
+  }
+
   @override
   void onInit() {
     if (_isLoading.isTrue) {

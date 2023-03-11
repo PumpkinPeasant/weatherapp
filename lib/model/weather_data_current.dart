@@ -12,7 +12,7 @@ class Fact {
   String? icon;
   String? condition;
   double? cloudness;
-  int? windSpeed;
+  double? windSpeed;
   int? humidity;
 
   Fact({
@@ -29,7 +29,7 @@ class Fact {
         icon: json['icon'] as String?,
         condition: json['condition'] as String?,
         cloudness: (json['cloudness'] as num?)?.toDouble(),
-        windSpeed: json['wind_speed'] as int?,
+        windSpeed: (json['wind_speed'] as num?)?.toDouble(),
         humidity: json['humidity'] as int?,
       );
 
