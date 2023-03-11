@@ -52,18 +52,17 @@ class GlobalController extends GetxController {
       }
     }
 
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value) {
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((value) async {
       _lattitude.value = value.latitude;
       _longitude.value = value.longitude;
+      _placemark.value = await getAddress();
       _isLoading.value = false;
-      getAddress();
     });
   }
 
   getAddress() async {
     List<Placemark> placemark = await placemarkFromCoordinates(getLattitude().value, getLongitude().value);
     Placemark place = placemark[0];
-    print(place);
     return place;
   }
 

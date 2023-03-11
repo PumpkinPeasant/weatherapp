@@ -24,11 +24,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   }
 
   getCity(placemark) {
-    print('test');
-    print(placemark);
     setState(() {
-      // city = placemark.locality;
-      city = "Severodvinsk";
+      city = placemark.locality;
     });
   }
 
