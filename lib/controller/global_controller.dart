@@ -3,6 +3,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:weatherapp/model/weather_data.dart';
+
+import '../api/fetch_weather.dart';
 
 class GlobalController extends GetxController {
   final RxBool _isLoading = true.obs;
@@ -17,6 +20,8 @@ class GlobalController extends GetxController {
   RxDouble getLongitude() => _longitude;
 
   Rx<Placemark> getPlacemark() => _placemark;
+
+  final Rx<WeatherData> weatherData = WeatherData().obs;
 
   @override
   void onInit() {
@@ -57,10 +62,14 @@ class GlobalController extends GetxController {
         .then((value) async {
       _lattitude.value = value.latitude;
       _longitude.value = value.longitude;
-      print(value.latitude);
-      print(value.longitude);
       _placemark.value = await getAddress();
-      _isLoading.value = false;
+
+      return FetchWeatherAPI()
+          .processData(value.latitude, value.longitude)
+          .then((value) {
+        weatherData.value = value;
+        _isLoading.value = false;
+      });
     });
   }
 
