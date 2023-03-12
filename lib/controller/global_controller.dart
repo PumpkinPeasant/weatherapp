@@ -12,6 +12,7 @@ class GlobalController extends GetxController {
   final RxDouble _lattitude = 0.0.obs;
   final RxDouble _longitude = 0.0.obs;
   final Rx<Placemark> _placemark = Placemark().obs;
+  final RxInt _cardIndex = 0.obs;
 
   RxBool checkLoading() => _isLoading;
 
@@ -32,6 +33,8 @@ class GlobalController extends GetxController {
     if (_isLoading.isTrue) {
       getLocation();
       setLocale();
+    } else {
+      getIndex();
     }
     super.onInit();
   }
@@ -87,5 +90,9 @@ class GlobalController extends GetxController {
   setLocale() {
     initializeDateFormatting('ru_RU', null);
     Intl.defaultLocale = 'ru';
+  }
+
+  getIndex() {
+    return _cardIndex;
   }
 }
