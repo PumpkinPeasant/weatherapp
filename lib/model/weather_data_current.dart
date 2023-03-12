@@ -43,22 +43,22 @@ class Fact {
       };
 }
 
-class AccumPrec {
-  int? one;
-  double? three;
-  double? seven;
-
-  AccumPrec({this.one, this.three, this.seven});
-
-  factory AccumPrec.fromJson(Map<String, dynamic> json) => AccumPrec(
-        one: json['1'] as int?,
-        three: (json['3'] as num?)?.toDouble(),
-        seven: (json['7'] as num?)?.toDouble(),
-      );
-
-  Map<String, dynamic> toJson() => {
-        '1': one,
-        '3': three,
-        '7': seven,
-      };
-}
+// class AccumPrec {
+//   int? one;
+//   double? three;
+//   double? seven;
+//
+//   AccumPrec({this.one, this.three, this.seven});
+//
+//   factory AccumPrec.fromJson(Map<String, dynamic> json) => AccumPrec(
+//         one: json['1'] as int?,
+//         three: (json['3'] as num?)?.toDouble(),
+//         seven: (json['7'] as num?)?.toDouble(),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         '1': one,
+//         '3': three,
+//         '7': seven,
+//       };
+// }
