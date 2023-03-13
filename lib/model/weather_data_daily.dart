@@ -1,14 +1,34 @@
-// class WeatherDataDaily {
-//   List<Hour> daily;
-//
-//   WeatherDataDaily({required this.hourly});
-//
-//   factory WeatherDataDaily.fromJson(Map<String, dynamic> json) {
-//     Forecast forecast = Forecast.fromJson((json['forecasts'] as List<dynamic>)[0]);
-//     return WeatherDataDaily(hourly: forecast.hours);
-//   }
-// }
+class WeatherDataDaily {
+  List<WeatherDataDay> daily;
 
+  WeatherDataDaily({required this.daily});
+
+  factory WeatherDataDaily.fromJson(Map<String, dynamic> json) {
+    List<WeatherDataDay> daily = (json['forecasts'] as List<dynamic>).map((f) {
+      Forecast forecast = Forecast.fromJson(f);
+      return WeatherDataDay(
+        date: forecast.date,
+        tempDay: forecast.parts?.dayShort?.temp,
+        tempNight: forecast.parts?.nightShort?.temp,
+        icon: forecast.parts?.dayShort?.icon,
+      );
+    }).toList();
+    return WeatherDataDaily(daily: daily);
+  }
+}
+
+class WeatherDataDay {
+  String? date;
+  int? tempNight;
+  int? tempDay;
+  String? icon;
+
+  WeatherDataDay(
+      {required this.date,
+      required this.tempNight,
+      required this.tempDay,
+      required this.icon});
+}
 
 class Forecast {
   String? date;
@@ -20,16 +40,16 @@ class Forecast {
   });
 
   factory Forecast.fromJson(Map<String, dynamic> json) => Forecast(
-    date: json['date'] as String?,
-    parts: json['parts'] == null
-        ? null
-        : Parts.fromJson(json['parts'] as Map<String, dynamic>),
-  );
+        date: json['date'] as String?,
+        parts: json['parts'] == null
+            ? null
+            : Parts.fromJson(json['parts'] as Map<String, dynamic>),
+      );
 
   Map<String, dynamic> toJson() => {
-    'date': date,
-    'parts': parts?.toJson(),
-  };
+        'date': date,
+        'parts': parts?.toJson(),
+      };
 }
 
 class Parts {
