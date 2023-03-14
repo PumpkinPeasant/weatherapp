@@ -70,7 +70,7 @@ class HourlyDataWidget extends StatelessWidget {
                   index: index,
                   cardIndex: cardIndex.toInt(),
                   temp: weatherDataHourly.hourly[index].temp!,
-                  time: weatherDataHourly.hourly[index].hourTs!,
+                  time: weatherDataHourly.hourly[index].hour!,
                   weatherIcon: weatherDataHourly.hourly[index].icon!,
                 ),
               ))));
@@ -82,16 +82,10 @@ class HourlyDataWidget extends StatelessWidget {
 
 class HourlyDetails extends StatelessWidget {
   int temp;
-  int time;
+  String time;
   int index;
   int cardIndex;
   String weatherIcon;
-
-  String getTime(final timeStamp) {
-    DateTime time = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-    String formattedTime = DateFormat('Hm').format(time);
-    return formattedTime;
-  }
 
   HourlyDetails(
       {Key? key,
@@ -109,8 +103,7 @@ class HourlyDetails extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 10),
-          child: Text(
-            getTime(time),
+          child: Text('$time:00',
             style: TextStyle(
                 color: cardIndex == index
                     ? Colors.white
