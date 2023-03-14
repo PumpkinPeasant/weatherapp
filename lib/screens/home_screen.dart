@@ -5,6 +5,8 @@ import 'package:weatherapp/widgets/current_weather.dart';
 import 'package:weatherapp/widgets/header_widget.dart';
 import 'package:weatherapp/widgets/hourly_data_widget.dart';
 
+import '../widgets/daily_data_widget.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -41,7 +43,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   HourlyDataWidget(
                       weatherDataHourly:
-                          globalController.getWeatherData().getHourlyWeather())
+                          globalController.getWeatherData().getHourlyWeather()),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  DailyDataWidget(
+                      weatherDataDaily:
+                          globalController.getWeatherData().getDailyWeather()),
                 ],
               ),
             )),
