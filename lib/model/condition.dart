@@ -14,6 +14,7 @@ class Condition {
     'wet-snow': 'дождь со снегом',
     'light-snow': 'небольшой снег',
     'snow-showers': 'снегопад',
+    'snow': 'снег',
     'hail': 'град',
     'thunderstorm': 'гроза',
     'thunderstorm-with-rain': 'дождь с грозой',
