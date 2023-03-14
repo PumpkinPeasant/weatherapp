@@ -13,6 +13,7 @@ class WeatherDataDaily {
         icon: forecast.parts?.dayShort?.icon,
       );
     }).toList();
+    daily.removeAt(0);
     return WeatherDataDaily(daily: daily);
   }
 }
