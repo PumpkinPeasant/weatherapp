@@ -7,7 +7,7 @@ class WeatherDataDaily {
     List<WeatherDataDay> daily = (json['forecasts'] as List<dynamic>).map((f) {
       Forecast forecast = Forecast.fromJson(f);
       return WeatherDataDay(
-        date: forecast.date,
+        dateTs: forecast.dateTs,
         tempDay: forecast.parts?.dayShort?.temp,
         tempNight: forecast.parts?.nightShort?.temp,
         icon: forecast.parts?.dayShort?.icon,
@@ -18,36 +18,36 @@ class WeatherDataDaily {
 }
 
 class WeatherDataDay {
-  String? date;
+  int? dateTs;
   int? tempNight;
   int? tempDay;
   String? icon;
 
   WeatherDataDay(
-      {required this.date,
+      {required this.dateTs,
       required this.tempNight,
       required this.tempDay,
       required this.icon});
 }
 
 class Forecast {
-  String? date;
+  int? dateTs;
   Parts? parts;
 
   Forecast({
-    this.date,
+    this.dateTs,
     this.parts,
   });
 
   factory Forecast.fromJson(Map<String, dynamic> json) => Forecast(
-        date: json['date'] as String?,
+    dateTs: json['date_ts'] as int?,
         parts: json['parts'] == null
             ? null
             : Parts.fromJson(json['parts'] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {
-        'date': date,
+    'date_ts': dateTs,
         'parts': parts?.toJson(),
       };
 }
