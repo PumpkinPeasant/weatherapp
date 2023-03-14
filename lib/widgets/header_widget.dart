@@ -13,19 +13,21 @@ class HeaderWidget extends StatefulWidget {
 
 class _HeaderWidgetState extends State<HeaderWidget> {
   String city = "";
+  String district = "";
   String date = DateFormat('yMMMd', 'ru_RU').format(DateTime.now());
   final GlobalController globalController =
       Get.put(GlobalController(), permanent: true);
 
   @override
   void initState() {
-    getCity(globalController.getPlacemark().value);
+    setCity(globalController.getPlacemark().value);
     super.initState();
   }
 
-  getCity(placemark) {
+  setCity(placemark) {
     setState(() {
       city = placemark.locality;
+      district = placemark.district;
     });
   }
 
@@ -36,6 +38,14 @@ class _HeaderWidgetState extends State<HeaderWidget> {
         Container(
             margin: const EdgeInsets.only(left: 20, right: 20),
             child: Text(city, style: const TextStyle(fontSize: 35, height: 2))),
+        Container(
+            margin: const EdgeInsets.only(left: 20, right: 20),
+            child: Text(district,
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 20,
+                  height: 1,
+                ))),
         Container(
             margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: Text(date,
