@@ -10,12 +10,21 @@ import '../api/fetch_weather.dart';
 
 class GlobalController extends GetxController {
   final RxBool _isLoading = true.obs;
+  final RxBool _hasPermission = false.obs;
+  final RxString _permissionError = ''.obs;
   final RxDouble _lattitude = 0.0.obs;
   final RxDouble _longitude = 0.0.obs;
-  final Rx<Geolocation> _placemark = Geolocation(locality: '', district: '', ).obs;
+  final Rx<Geolocation> _placemark = Geolocation(
+    locality: '',
+    district: '',
+  ).obs;
   final RxInt _cardIndex = 0.obs;
 
   RxBool checkLoading() => _isLoading;
+
+  RxBool checkPermission() => _hasPermission;
+
+  RxString getPermissionError() => _permissionError;
 
   RxDouble getLattitude() => _lattitude;
 
@@ -52,19 +61,24 @@ class GlobalController extends GetxController {
 
     isServiceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!isServiceEnabled) {
-      return Future.error('Невозможно получить местоположение');
+      _permissionError.value = 'Невозможно получить местоположение';
+      _isLoading.value = false;
+      return;
     }
 
     locationPermission = await Geolocator.checkPermission();
     if (locationPermission == LocationPermission.deniedForever) {
-      return Future.error('Функция определения местоположения отключена');
+      _permissionError.value = 'Функция определения местоположения отключена';
+      _isLoading.value = false;
+      return;
     } else if (locationPermission == LocationPermission.denied) {
       locationPermission = await Geolocator.requestPermission();
-      if (locationPermission == LocationPermission.denied) {
-        return Future.error('Невозможно получить местоположение');
+      if (locationPermission == LocationPermission.denied || locationPermission == LocationPermission.deniedForever) {
+        _permissionError.value = 'Невозможно получить местоположение';
+        _isLoading.value = false;
+        return;
       }
     }
-
     return await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high)
         .then((value) async {
@@ -75,8 +89,9 @@ class GlobalController extends GetxController {
           .processData(value.latitude, value.longitude)
           .then((value) {
         weatherData.value = value;
-        _placemark.value =  getAddress(value);
+        _placemark.value = getAddress(value);
         _isLoading.value = false;
+        _hasPermission.value = true;
       });
     });
   }

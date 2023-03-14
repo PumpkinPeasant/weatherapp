@@ -26,33 +26,40 @@ class _HomeScreenState extends State<HomeScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Center(
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                children: [
-                  const SizedBox(
-                    height: 20,
+          : globalController.checkPermission().isTrue
+              ? Center(
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const HeaderWidget(),
+                      CurrentWeatherWidget(
+                        weatherDataCurrent: globalController
+                            .getWeatherData()
+                            .getCurrentWeather(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      HourlyDataWidget(
+                          weatherDataHourly: globalController
+                              .getWeatherData()
+                              .getHourlyWeather()),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      DailyDataWidget(
+                          weatherDataDaily: globalController
+                              .getWeatherData()
+                              .getDailyWeather()),
+                    ],
                   ),
-                  const HeaderWidget(),
-                  CurrentWeatherWidget(
-                    weatherDataCurrent:
-                        globalController.getWeatherData().getCurrentWeather(),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HourlyDataWidget(
-                      weatherDataHourly:
-                          globalController.getWeatherData().getHourlyWeather()),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  DailyDataWidget(
-                      weatherDataDaily:
-                          globalController.getWeatherData().getDailyWeather()),
-                ],
-              ),
-            )),
+                )
+              : Center(
+                  child: Text(globalController.getPermissionError().value, style: const TextStyle(fontSize: 35, height: 2)),
+                )),
     ));
   }
 }
